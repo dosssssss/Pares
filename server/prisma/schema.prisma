@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  OPEN
+  PAID
+  VOID
+}
+
+enum PaymentMethod {
+  CASH
+}
+
+enum SyncStatus {
+  PENDING
+  SYNCED
+  FAILED
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id           Int        @id @default(autoincrement())
+  name         String     @unique
+  displayOrder Int        @default(0)
+
+  menuItems    MenuItem[]
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+model MenuItem {
+  id          Int      @id @default(autoincrement())
+
+  categoryId  Int
+  category    Category @relation(fields: [categoryId], references: [id])
+
+  name        String
+  price       Decimal  @db.Decimal(10,2)
+
+  isAvailable Boolean  @default(true)
+
+  orderItems  OrderItem[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id             Int            @id @default(autoincrement())
+
+  orderNumber    String         @unique
+
+  status         OrderStatus    @default(OPEN)
+
+  totalAmount    Decimal        @db.Decimal(10,2)
+
+  paymentMethod  PaymentMethod?
+
+  cashReceived   Decimal?       @db.Decimal(10,2)
+  changeAmount   Decimal?       @db.Decimal(10,2)
+
+  syncStatus     SyncStatus     @default(PENDING)
+
+  paidAt         DateTime?
+
+  orderItems     OrderItem[]
+
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model OrderItem {
+  id          Int      @id @default(autoincrement())
+
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id])
+
+  menuItemId  Int
+  menuItem    MenuItem @relation(fields: [menuItemId], references: [id])
+
+  quantity    Int
+
+  unitPrice   Decimal  @db.Decimal(10,2)
+  subtotal    Decimal  @db.Decimal(10,2)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
