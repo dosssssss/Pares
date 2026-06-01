@@ -1,0 +1,299 @@
+/* =========================
+   GLOBAL POS LAYOUT
+========================= */
+
+.pos-container {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr;
+  gap: 20px;
+
+  min-height: 100vh;
+
+  padding: 20px;
+
+  background: #0f172a;
+  color: #f8fafc;
+
+  box-sizing: border-box;
+}
+
+/* =========================
+   LEFT PANEL
+========================= */
+
+.menu-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-section h1 {
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.menu-section h2 {
+  margin-bottom: 12px;
+}
+
+/* =========================
+   CATEGORY BUTTONS
+========================= */
+
+.categories-container {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+
+  margin-bottom: 25px;
+}
+
+.category-btn {
+  border: none;
+
+  background: #334155;
+  color: white;
+
+  padding: 12px 20px;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.category-btn:hover {
+  background: #475569;
+}
+
+.category-btn.active {
+  background: #2563eb;
+}
+
+/* =========================
+   MENU ITEMS GRID
+========================= */
+
+.menu-items-container {
+  display: grid;
+
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(180px, 1fr)
+  );
+
+  gap: 15px;
+}
+
+.menu-item-btn {
+  border: 1px solid #334155;
+
+  background: #1e293b;
+
+  color: white;
+
+  width: 100%;
+  height: 140px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  transition: 0.2s;
+
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.menu-item-btn:hover {
+  background: #334155;
+  transform: translateY(-2px);
+}
+
+.menu-item-btn:active {
+  transform: scale(0.98);
+}
+
+/* =========================
+   ORDER PANEL
+========================= */
+
+.order-section {
+  background: #1e293b;
+
+  border: 1px solid #334155;
+
+  border-radius: 15px;
+
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.order-section h2 {
+  margin-bottom: 15px;
+}
+
+/* =========================
+   CART ITEMS
+========================= */
+
+.cart-item {
+  display: grid;
+
+  grid-template-columns:
+    40px
+    1fr
+    40px
+    auto;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 0;
+
+  border-bottom: 1px solid #334155;
+}
+
+.cart-item button {
+  height: 36px;
+
+  border: none;
+
+  border-radius: 8px;
+
+  background: #334155;
+  color: white;
+
+  cursor: pointer;
+
+  font-weight: bold;
+}
+
+.cart-item button:hover {
+  background: #475569;
+}
+
+/* =========================
+   TOTAL
+========================= */
+
+.order-section hr {
+  margin: 20px 0;
+  border-color: #334155;
+}
+
+.order-section h2:last-of-type {
+  margin-bottom: 20px;
+}
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment-section {
+  display: flex;
+  flex-direction: column;
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.payment-section label {
+  font-weight: 600;
+}
+
+.payment-section input {
+  height: 50px;
+
+  padding: 0 15px;
+
+  border-radius: 10px;
+
+  border: 1px solid #334155;
+
+  background: #0f172a;
+
+  color: white;
+
+  font-size: 18px;
+}
+
+.payment-section input:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+.payment-section h3 {
+  margin-top: 10px;
+  font-size: 24px;
+}
+
+/* =========================
+   PAY BUTTON
+========================= */
+
+.pay-btn {
+  margin-top: auto;
+
+  width: 100%;
+  height: 60px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background: #16a34a;
+
+  color: white;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.pay-btn:hover {
+  background: #15803d;
+}
+
+.pay-btn:disabled {
+  background: #475569;
+  cursor: not-allowed;
+}
+
+/* =========================
+   EMPTY CART
+========================= */
+
+.order-section p {
+  color: #cbd5e1;
+}
+
+/* =========================
+   IPAD RESPONSIVE
+========================= */
+
+@media (max-width: 1024px) {
+  .pos-container {
+    grid-template-columns: 1fr;
+  }
+
+  .order-section {
+    margin-top: 20px;
+  }
+}

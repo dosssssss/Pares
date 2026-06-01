@@ -9,11 +9,22 @@ import {
 
 
 export async function create(
-  _req: Request,
+  req: Request,
   res: Response
 ) {
   try {
-    const order = await createOrder();
+    const {
+      totalAmount,
+      cashReceived,
+      changeAmount,
+    } = req.body;
+
+    const order =
+      await createOrder(
+        Number(totalAmount),
+        Number(cashReceived),
+        Number(changeAmount)
+      );
 
     res.status(201).json({
       success: true,

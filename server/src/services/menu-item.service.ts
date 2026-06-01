@@ -38,3 +38,66 @@ export async function getMenuItemsByCategory(
     },
   });
 }
+export async function updateMenuItem(
+  id: number,
+  categoryId: number,
+  name: string,
+  price: number
+) {
+  return prisma.menuItem.update({
+    where: {
+      id,
+    },
+    data: {
+      categoryId,
+      name,
+      price,
+    },
+  });
+}
+
+
+export async function deleteMenuItem(
+  id: number
+) {
+  const orderItem =
+    await prisma.orderItem.findFirst({
+      where: {
+        menuItemId: id,
+      },
+    });
+
+  if (orderItem) {
+    throw new Error(
+      "Cannot delete menu item because it already exists in sales history."
+    );
+  }
+
+  return prisma.menuItem.delete({
+    where: {
+      id,
+    },
+  });
+}
+export async function toggleMenuItemAvailability(
+  id: number
+) {
+  const item =
+    await prisma.menuItem.findUnique({
+      where: { id },
+    });
+
+  if (!item) {
+    throw new Error(
+      "Menu item not found"
+    );
+  }
+
+  return prisma.menuItem.update({
+    where: { id },
+    data: {
+      isAvailable:
+        !item.isAvailable,
+    },
+  });
+}

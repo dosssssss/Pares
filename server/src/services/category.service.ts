@@ -19,3 +19,13 @@ export async function getCategories() {
     },
   });
 }
+
+export async function deleteCategory(
+  id: number
+) {
+  return prisma.category.delete({
+    where: {
+      id,
+    },
+  });
+}

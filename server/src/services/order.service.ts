@@ -1,6 +1,10 @@
 import { prisma } from "../config/prisma";
 
-export async function createOrder() {
+export async function createOrder(
+  totalAmount: number,
+  cashReceived: number,
+  changeAmount: number
+) {
   const lastOrder = await prisma.order.findFirst({
     orderBy: {
       id: "desc",
@@ -14,10 +18,22 @@ export async function createOrder() {
   return prisma.order.create({
     data: {
       orderNumber: nextNumber,
-      totalAmount: 0,
+
+      totalAmount,
+
+      status: "PAID",
+
+      paymentMethod: "CASH",
+
+      cashReceived,
+
+      changeAmount,
+
+      paidAt: new Date(),
     },
   });
 }
+
 
 export async function getOpenOrders() {
   return prisma.order.findMany({
